@@ -1,0 +1,7 @@
+{
+  "name": "Ecar",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "ionic-angular"
+}
