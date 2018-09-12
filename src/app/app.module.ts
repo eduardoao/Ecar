@@ -1,3 +1,4 @@
+import { Observable } from 'rxjs/Observable';
 import { EscolhaPage } from './../pages/escolha/escolha';
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
@@ -11,6 +12,13 @@ import { HttpClientModule } from '@angular/common/http';
 import { CarrosServicesProvider } from '../providers/carros-services/carros-services';
 import { AgendamentoServiceProvider } from '../providers/agendamento-service/agendamento-service';
 
+import { IonicStorageModule} from '@ionic/storage';
+
+import 'rxjs/add/operator/finally';
+import 'rxjs/add/operator/do';
+import 'rxjs/add/operator/mergeMap';
+import 'rxjs/add/observable/fromPromise';
+
 
 @NgModule({
   declarations: [
@@ -21,7 +29,14 @@ import { AgendamentoServiceProvider } from '../providers/agendamento-service/age
   imports: [
     BrowserModule,
     HttpClientModule, //Tem que importar para realizar requisições em HTTP.
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp),
+    IonicStorageModule.forRoot(
+      {
+        name:  'Ecar',
+        storeName: 'agendamentos',
+        driverOrder: ['indexddb']
+      }
+    )
   ],
   bootstrap: [IonicApp],
   entryComponents: [

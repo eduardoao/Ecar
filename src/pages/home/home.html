@@ -9,8 +9,21 @@
 <ion-content padding>
   <ion-list>
     <ion-item *ngFor="let carro of carros" (click)="selecionaCarro(carro)">
-      <h2>{{carro.nome}}</h2>
-      <p>R$ {{carro.preco}}</p>
+     
+      <ion-card>
+        <ion-item>        
+          <img src="{{carro.fotos[0]}}" />
+          <h2>{{carro.nome}}</h2>
+          <p>{{carro.preco | currency: 'R$' }}</p>
+        </ion-item>
+        <ion-card-content>
+          <p>Informações sobre o carro...</p>
+        </ion-card-content>
+
+      </ion-card>
+
     </ion-item>
   </ion-list>
 </ion-content>
+
+

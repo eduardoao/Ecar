@@ -13,7 +13,9 @@ export class AgendamentoServiceProvider {
   }
 
   agenda(agendamento){
-    return this._http.post(this._url+'/agendamento/agenda', agendamento);
+    return this._http
+            .post(this._url+'/agendamento/agenda', agendamento)
+            .do(() => agendamento.enviado= true);
   }
 
 }
