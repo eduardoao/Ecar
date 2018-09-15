@@ -17,7 +17,10 @@ import { IonicStorageModule} from '@ionic/storage';
 import 'rxjs/add/operator/finally';
 import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/mergeMap';
+import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/fromPromise';
+import 'rxjs/add/observable/of';
+import { AgendamentoDaoProvider } from '../providers/agendamento-dao/agendamento-dao';
 
 
 @NgModule({
@@ -34,7 +37,7 @@ import 'rxjs/add/observable/fromPromise';
       {
         name:  'Ecar',
         storeName: 'agendamentos',
-        driverOrder: ['indexddb']
+        driverOrder: ['indexeddb']
       }
     )
   ],
@@ -48,7 +51,8 @@ import 'rxjs/add/observable/fromPromise';
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     CarrosServicesProvider,
-    AgendamentoServiceProvider
+    AgendamentoServiceProvider,
+    AgendamentoDaoProvider
   ]
 })
 export class AppModule {}

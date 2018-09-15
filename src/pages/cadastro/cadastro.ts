@@ -1,10 +1,11 @@
-import { Storage } from '@ionic/storage';
+import { HomePage } from './../home/home';
+import { AgendamentoDaoProvider } from './../../providers/agendamento-dao/agendamento-dao';
 import { Agendamento } from './../../model/Agendamento';
 import { AgendamentoServiceProvider } from './../../providers/agendamento-service/agendamento-service';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, Alert } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Alert, AlertController, DateTime } from 'ionic-angular';
 import { Carro } from '../../model/carro';
-import { Observable } from 'rxjs/Observable';
+
 
 @IonicPage()
 @Component({
@@ -15,30 +16,27 @@ export class CadastroPage {
 
   public carro: Carro;
   public precoTotal: number;
-
   public nome:      string= '';
   public endereco:  string = '';
   public email:     string = '';
-  public data:      string = new Date().toISOString();
-
+  public data:      string;
   private _alerta: Alert;
   
-
 
   constructor(
       public navCtrl: NavController, 
       public navParams: NavParams,
-      private _agendamentoServiceProvider: AgendamentoServiceProvider,
-      private _stored: Storage ) {
-
-      this.carro =  this.navParams.get('carroSelecionado');
-      this.precoTotal = this.navParams.get('precoTotal');      
-  }
+      private _agendamentoServiceProvider: AgendamentoServiceProvider,     
+      private _alertCtl: AlertController,
+      private _agendamentoDAO: AgendamentoDaoProvider
+      ) 
+      {
+        this.carro =  this.navParams.get('carroSelecionado');
+        this.precoTotal = this.navParams.get('precoTotal');      
+      }
 
  
-  agenda() {
-    console.log (this.nome);
-    console.log (this.data);
+  agenda() {  
 
     let agendamento : Agendamento = {
       nomeCliente: this.nome,
@@ -48,34 +46,43 @@ export class CadastroPage {
       precoTotal : this.precoTotal,
       confirmado: false,
       enviado: false,
-      //dataCliente: this.data
+      data: this.data      
     };
 
+
+    this._alertCtl.create({
+      title: 'Aviso', 
+      buttons: [
+        {
+          text: 'OK',
+          handler: ()=> { this.navCtrl.setRoot(HomePage); }
+        }
+      ]
+      });
 
     let mensagem ='';
 
     this._agendamentoServiceProvider.agenda(agendamento)
-    .mergeMap(()=> this.salva(agendamento))
+    .mergeMap((valor)=> {
+      let observable = this._agendamentoDAO.salva(agendamento);
+      if (valor instanceof(Error)) {
+        throw valor;
+      }
+      return observable;
+    })   
+   
     .finally(
      () => 
-        {
-          this._alerta.setSubTitle(mensagem);
+        {         
+          this._alerta.setSubTitle(mensagem);         
           this._alerta.present();
         }
-    )  
+    ) 
+
     .subscribe(
-        ()=> { mensagem ='Agendado!' },
-        ()=> { mensagem ='Ocorreu uma falha!'}
+        ()=>  mensagem ='Agendado!' ,
+        (err: Error)=>  mensagem =err.message
       )
       
   }
-
-
-  salva(agendamento) {
-      let chave = this.email + this.data.substr(0, 10);
-      let promise = this._stored.set(chave, agendamento);
-      //Salva se deu certo a ação de gravar o agendamento.
-      return Observable.fromPromise(promise);
-  }
-
 }
