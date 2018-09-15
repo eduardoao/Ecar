@@ -67,20 +67,17 @@ export class CadastroPage {
           if (ehDuplicado) {
             throw new Error ('Agendamento já realizado anteriormente!');
           }
-
           return  this._agendamentoServiceProvider.agenda(agendamento);
         }
           
-    )       
-   
+    )  
     .mergeMap((valor)=> {
       let observable = this._agendamentoDAO.salva(agendamento);
       if (valor instanceof(Error)) {
         throw valor;
       }
       return observable;
-    })   
-   
+    })
     .finally(
      () => 
         {         
@@ -88,7 +85,6 @@ export class CadastroPage {
           this._alerta.present();
         }
     ) 
-
     .subscribe(
         ()=>  mensagem ='Agendado!' ,
         (err: Error)=>  mensagem =err.message

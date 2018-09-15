@@ -26,14 +26,26 @@ export class AgendamentoDaoProvider {
     return Observable.fromPromise(promise);
 }
 
-ehDuplicado(agendamento: Agendamento){
-  let chave = this._geraChave(agendamento);
-  let promise = this._storage
-                    .get(chave)
-                    .then(dado => {return dado ? true: false });
+  ehDuplicado(agendamento: Agendamento){
+    let chave = this._geraChave(agendamento);
+    let promise = this._storage
+                      .get(chave)
+                      .then(dado => {return dado ? true: false });
 
-  return Observable.fromPromise(promise);
+    return Observable.fromPromise(promise);
 
-}
+  }
+
+  listaTodosAgendamentos() {
+
+    let agendamentos: Agendamento[] = [];
+
+    let promise = this._storage.forEach((agendamento: Agendamento) => {
+          agendamentos.push(agendamento);
+        })
+        .then(() =>agendamentos);
+    
+    return Observable.fromPromise(promise);
+  }
 
 }

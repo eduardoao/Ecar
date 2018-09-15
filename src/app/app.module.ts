@@ -1,3 +1,4 @@
+
 import { Observable } from 'rxjs/Observable';
 import { EscolhaPage } from './../pages/escolha/escolha';
 import { BrowserModule } from '@angular/platform-browser';
@@ -8,9 +9,11 @@ import { StatusBar } from '@ionic-native/status-bar';
 
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
+import { ListaAgendamentosPage } from './../pages/lista-agendamentos/lista-agendamentos';
 import { HttpClientModule } from '@angular/common/http';
 import { CarrosServicesProvider } from '../providers/carros-services/carros-services';
 import { AgendamentoServiceProvider } from '../providers/agendamento-service/agendamento-service';
+import { AgendamentoDaoProvider } from '../providers/agendamento-dao/agendamento-dao';
 
 import { IonicStorageModule} from '@ionic/storage';
 
@@ -20,13 +23,13 @@ import 'rxjs/add/operator/mergeMap';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/fromPromise';
 import 'rxjs/add/observable/of';
-import { AgendamentoDaoProvider } from '../providers/agendamento-dao/agendamento-dao';
+
 
 
 @NgModule({
   declarations: [
     MyApp,
-    HomePage
+    HomePage   
     
   ],
   imports: [
@@ -44,7 +47,8 @@ import { AgendamentoDaoProvider } from '../providers/agendamento-dao/agendamento
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    HomePage    
+    HomePage
+        
   ],
   providers: [
     StatusBar,
