@@ -50,7 +50,7 @@ export class CadastroPage {
     };
 
 
-    this._alertCtl.create({
+    this._alerta = this._alertCtl.create({
       title: 'Aviso', 
       buttons: [
         {
@@ -62,7 +62,17 @@ export class CadastroPage {
 
     let mensagem ='';
 
-    this._agendamentoServiceProvider.agenda(agendamento)
+    this._agendamentoDAO.ehDuplicado(agendamento)
+        .mergeMap(ehDuplicado => {
+          if (ehDuplicado) {
+            throw new Error ('Agendamento já realizado anteriormente!');
+          }
+
+          return  this._agendamentoServiceProvider.agenda(agendamento);
+        }
+          
+    )       
+   
     .mergeMap((valor)=> {
       let observable = this._agendamentoDAO.salva(agendamento);
       if (valor instanceof(Error)) {

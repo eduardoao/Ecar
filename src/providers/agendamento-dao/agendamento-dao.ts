@@ -32,7 +32,7 @@ ehDuplicado(agendamento: Agendamento){
                     .get(chave)
                     .then(dado => {return dado ? true: false });
 
-  
+  return Observable.fromPromise(promise);
 
 }
 
