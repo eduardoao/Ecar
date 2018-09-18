@@ -1,3 +1,4 @@
+import { LoginPage } from './../pages/login/login';
 
 import { Observable } from 'rxjs/Observable';
 import { EscolhaPage } from './../pages/escolha/escolha';
@@ -29,7 +30,8 @@ import 'rxjs/add/observable/of';
 @NgModule({
   declarations: [
     MyApp,
-    HomePage   
+    HomePage,
+    LoginPage   
     
   ],
   imports: [
@@ -47,7 +49,8 @@ import 'rxjs/add/observable/of';
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    HomePage
+    HomePage,
+    LoginPage
         
   ],
   providers: [

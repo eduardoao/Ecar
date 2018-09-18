@@ -2,7 +2,7 @@ import { AgendamentoServiceProvider } from './../../providers/agendamento-servic
 import { Agendamento } from './../../model/Agendamento';
 import { AgendamentoDaoProvider } from './../../providers/agendamento-dao/agendamento-dao';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController, Alert } from 'ionic-angular';
 
 @IonicPage()
 @Component({
@@ -10,7 +10,8 @@ import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angu
   templateUrl: 'lista-agendamentos.html',
 })
 export class ListaAgendamentosPage {
-
+  
+  private _alerta: Alert;
   agendamentos: Agendamento[];
 
   constructor(public navCtrl: NavController, 
@@ -24,6 +25,40 @@ export class ListaAgendamentosPage {
      this._agendamentoDao.listaTodosAgendamentos()
          .subscribe(
            (agendamentos: Agendamento[]) => { this.agendamentos = agendamentos });
+  }
+
+  reenviar(agendamento: Agendamento){
+    this._alerta = this._alertCtrl.create({
+      title: 'Aviso', 
+      buttons: [
+        {
+          text: 'OK'        
+        }
+      ]
+      });
+
+    let mensagem ='';
+      
+    this._agendamentoProvider.agenda(agendamento)
+        .mergeMap((valor)=> {
+                let observable = this._agendamentoDao.salva(agendamento);
+                      if (valor instanceof(Error)) {
+                                throw valor;
+                      }
+      return observable;
+    })
+    .finally(
+     () => 
+        {         
+          this._alerta.setSubTitle(mensagem);         
+          this._alerta.present();
+        }
+    ) 
+    .subscribe(
+        ()=>  mensagem ='Agendado reenviado!' ,
+        (err: Error)=>  mensagem =err.message
+      )
+      
   }
 
 }
