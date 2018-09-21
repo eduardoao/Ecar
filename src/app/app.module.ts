@@ -1,7 +1,6 @@
+import { PerfilPage } from './../pages/perfil/perfil';
 import { LoginPage } from './../pages/login/login';
 
-import { Observable } from 'rxjs/Observable';
-import { EscolhaPage } from './../pages/escolha/escolha';
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
@@ -10,7 +9,6 @@ import { StatusBar } from '@ionic-native/status-bar';
 
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
-import { ListaAgendamentosPage } from './../pages/lista-agendamentos/lista-agendamentos';
 import { HttpClientModule } from '@angular/common/http';
 import { CarrosServicesProvider } from '../providers/carros-services/carros-services';
 import { AgendamentoServiceProvider } from '../providers/agendamento-service/agendamento-service';
@@ -24,6 +22,7 @@ import 'rxjs/add/operator/mergeMap';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/fromPromise';
 import 'rxjs/add/observable/of';
+import { UsuariosServiceProvider } from '../providers/usuarios-service/usuarios-service';
 
 
 
@@ -31,7 +30,8 @@ import 'rxjs/add/observable/of';
   declarations: [
     MyApp,
     HomePage,
-    LoginPage   
+    LoginPage
+       
     
   ],
   imports: [
@@ -50,7 +50,8 @@ import 'rxjs/add/observable/of';
   entryComponents: [
     MyApp,
     HomePage,
-    LoginPage
+    LoginPage,
+    
         
   ],
   providers: [
@@ -59,7 +60,8 @@ import 'rxjs/add/observable/of';
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     CarrosServicesProvider,
     AgendamentoServiceProvider,
-    AgendamentoDaoProvider
+    AgendamentoDaoProvider,
+    UsuariosServiceProvider
   ]
 })
 export class AppModule {}
