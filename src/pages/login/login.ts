@@ -1,4 +1,3 @@
-import { Usuario } from './../../model/usuario';
 import { UsuariosServiceProvider } from './../../providers/usuarios-service/usuarios-service';
 import { HomePage } from './../home/home';
 import { Component } from '@angular/core';

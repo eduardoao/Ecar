@@ -37,6 +37,7 @@ export class EscolhaPage {
   }
 
   avancaCadastro()  {
+    debugger;
     this.navCtrl.push(CadastroPage.name, {
       carroSelecionado: this.carro, 
       precoTotal: this._precoTotal 

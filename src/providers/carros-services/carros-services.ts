@@ -10,7 +10,7 @@ export class CarrosServicesProvider {
   }
 
   lista() {
-    return this._http.get<Carro[]>('http://localhost:8080/api/carro/ListaTodos')
+    return this._http.get<Carro[]>('http://192.168.0.17:8080/api/carro/ListaTodos')
   };
 
 }

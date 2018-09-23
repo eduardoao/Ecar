@@ -1,4 +1,4 @@
-import { PerfilPage } from './../pages/perfil/perfil';
+import { Vibration } from '@ionic-native/vibration';
 import { LoginPage } from './../pages/login/login';
 
 import { BrowserModule } from '@angular/platform-browser';
@@ -61,7 +61,8 @@ import { UsuariosServiceProvider } from '../providers/usuarios-service/usuarios-
     CarrosServicesProvider,
     AgendamentoServiceProvider,
     AgendamentoDaoProvider,
-    UsuariosServiceProvider
+    UsuariosServiceProvider,
+    Vibration
   ]
 })
 export class AppModule {}

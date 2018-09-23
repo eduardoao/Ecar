@@ -3,9 +3,10 @@ import { AgendamentoDaoProvider } from './../../providers/agendamento-dao/agenda
 import { Agendamento } from './../../model/Agendamento';
 import { AgendamentoServiceProvider } from './../../providers/agendamento-service/agendamento-service';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, Alert, AlertController, DateTime } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Alert, AlertController } from 'ionic-angular';
 import { Carro } from '../../model/carro';
 
+import {Vibration} from '@ionic-native/vibration';
 
 @IonicPage()
 @Component({
@@ -28,7 +29,8 @@ export class CadastroPage {
       public navParams: NavParams,
       private _agendamentoServiceProvider: AgendamentoServiceProvider,     
       private _alertCtl: AlertController,
-      private _agendamentoDAO: AgendamentoDaoProvider
+      private _agendamentoDAO: AgendamentoDaoProvider,
+      private _vibrate: Vibration 
       ) 
       {
         this.carro =  this.navParams.get('carroSelecionado');
@@ -37,6 +39,21 @@ export class CadastroPage {
 
  
   agenda() {  
+
+    if(!this.nome || !this.email || !this.endereco) {
+      this._vibrate.vibrate(500);
+      this._alertCtl.create ({
+        title: 'Preenchimento obrigatório!',
+        subTitle: 'Preencha os campos!',
+        buttons: [
+          {text: 'OK'}
+        ]
+      }).present();
+
+      return;
+    }
+
+
 
     let agendamento : Agendamento = {
       nomeCliente: this.nome,
