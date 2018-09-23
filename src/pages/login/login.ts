@@ -11,8 +11,8 @@ import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angu
 })
 export class LoginPage {
 
-  email: string = 'joao@alura.com.br';
-  senha: string = 'alura123';
+  email: string = 'eoalcantara@gmail.com';
+  senha: string = '123';
 
   constructor(public navCtrl: NavController, 
     public navParams: NavParams,
@@ -22,16 +22,17 @@ export class LoginPage {
   }
 
   realizarLogin(){    
-    this._usuarioService.efetuaLogin (this.email, this.senha)
-    .subscribe(      
+    this._usuarioService.efetuaLogin (this.email, this.senha) 
+    .subscribe(   
+         
       () =>{ this.navCtrl.setRoot(HomePage); }, //Caso de sucesso no login
       ()=> {                                   //Caso de falha
-              this._alertCrtl.create ({
-              title: 'Falha ao logar!',
+        this._alertCrtl.create ({
+        title: 'Falha ao logar!',
               subTitle: 'Email e ou senha incorretos!',
               buttons: [{
-                text: 'OK'
-              }]
+              text: 'OK'
+            }]
             }).present(); 
           }
     )
