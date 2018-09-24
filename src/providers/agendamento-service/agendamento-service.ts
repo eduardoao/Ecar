@@ -7,7 +7,7 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class AgendamentoServiceProvider {
 
-  private _url = 'http://192.168.0.17:8080/api';
+  private _url = 'https://boiling-peak-16173.herokuapp.com/api';
 
   constructor(private _http: HttpClient) {
    

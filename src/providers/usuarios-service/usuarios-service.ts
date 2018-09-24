@@ -13,7 +13,7 @@ export class UsuariosServiceProvider {
   }
 
   efetuaLogin (email, senha){
-    return this._http.post<Usuario>('http://192.168.0.17:8080/api/login', {email, senha})
+    return this._http.post<Usuario>('https://boiling-peak-16173.herokuapp.com/api/login', {email, senha})
     .do((usuario:Usuario) => this._usuarioLogado = usuario);
   }
 
